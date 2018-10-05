@@ -18,7 +18,7 @@ class Ucenik:
         self.matura = list(map(float, kod_delovi[6].split(",")))[:3]
         self.afirmativni_bodovi = list(map(float, kod_delovi[6].split(",")))[3]
         self.takmicenja_bodovi = list(map(float, kod_delovi[6].split(",")))[4]
-        self.bodovi = 4 * self.prosek + self.matura + self.afirmativni_bodovi + self.takmicenja_bodovi
+        self.bodovi = 4 * np.sum(self.prosek) + np.sum(self.matura) + self.afirmativni_bodovi + self.takmicenja_bodovi
         self.lista_zelja = np.array(kod_delovi[7:-1])
 
 
@@ -46,10 +46,13 @@ for i in range(broj_smerova):
     smerovi[i] = (sifra, int(kvota))
     line = smer_txt.readline()
 
-if slucaj == 'a':
-    ucenici = sorted(ucenici, key=sort_function)
+print(ucenici[0].sifra)
+print(ucenici[0].matura)
 print(ucenici[0].bodovi)
-
+if slucaj == 'a':
+    ucenici = sorted(ucenici, key=lambda x: x.bodovi, reverse=True)
+    for ucenik in ucenici:
+        print(ucenik.bodovi)
 """
 for ucenik in ucenici:
     try:
